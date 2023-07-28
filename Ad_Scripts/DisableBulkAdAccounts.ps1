@@ -11,5 +11,5 @@ Import-Csv <#file path#> | ForEach-Object {
     Get-ADUser -Server "c1b.corp" -Identity $distinguishedName | Disable-ADAccount
 
     #Rollback Option, grabs Ad Account and pipes to Enable that account
-    #Get-ADUser -Server "c1b.corp" -Identity $distinguishedName | Enable-ADAccount
+    #Get-ADUser -Server "<Domain Name>" -Identity $distinguishedName | Enable-ADAccount
 }
