@@ -1,5 +1,3 @@
-#Successful test of adding svc_Forcepoint on LASFILE02N03 on 1/10
-
 #Import file paths from CSV file
 $Files = Import-Csv <#file path#>
 
