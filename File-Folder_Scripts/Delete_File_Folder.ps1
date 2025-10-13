@@ -1,6 +1,6 @@
 #Using the -Directory property will only grab Folders, while -File will only grab Files
 #$Folders = Get-ChildItem -Path <#file path#> -Directory
-$Files = Get-ChildItem -Path <#file path#> -File
+$Files = Get-ChildItem -Path "C:\Users\andas\Downloads" -File
 
 #Grabs the current date
 $TodaysDate = Get-Date
@@ -17,9 +17,9 @@ Foreach($File in $Files){
     #Check if time difference is greater then 30 days 
     if($timeDiff -gt 30){
         #For Debugging
-        #Write-Host $File.Name
+        Write-Host $File.Name
 
         #Removes file permanently (not sent to recycle bin)
-        Remove-Item $File
+        #Remove-Item $File
     }
 }
