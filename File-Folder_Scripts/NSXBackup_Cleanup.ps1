@@ -56,5 +56,14 @@
     $filesToBeDeleted | Select-Object Name, Type, Age | Export-Csv -Path #FilePathToExportTo# -NoTypeInformation -Force
 }
 
-#Call Function
-#Remove-Backups -filePath <Value> -numberOfDaysToKeep <Value>
+#Clear Error variable 
+$Error.Clear()
+
+#Grab credentials to log in to remote server with
+#$creds = Get-Credential
+
+#Invoke Command on SFTP Server
+Invoke-Command -ErrorAction SilentlyContinue -ComputerName <ServerName> -Credential $creds -ScriptBlock{
+    #Call Function
+    #Remove-Backups -filePath <Value> -numberOfDaysToKeep <Value>
+}
