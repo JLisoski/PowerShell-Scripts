@@ -13,7 +13,6 @@
     #Write-Output ""
 
     #Using the -Directory property will only grab Folders, while -File will only grab Files
-    #$Folders = Get-ChildItem -Path <#file path#> -Directory
     
     #Check the directories or file param
     if($directoriesOrFiles -eq "Directory"){
@@ -21,7 +20,6 @@
     }else{
         $Files = Get-ChildItem -Recurse -Path $filePath -File
     }
-    
 
     #Grabs the current date
     $TodaysDate = Get-Date
@@ -39,21 +37,24 @@
         if($timeDiff -gt $numberOfDaysToKeep){
             #For Debugging, with -Recurse flag on prints current directory before going down a level
             #Write-Host $File.Name
+            #Write-Host "Removing" $File.Name
 
-            Write-Host "Removing" $File.Name
+            #Create PSObject to retain deleted file/directory information
+            New-Object PSObject -Property @{
+                Name = $File.Name
+                Type = $File.Type
+                Age = $timeDiff
+            }
+            
             #Removes file permanently (not sent to recycle bin)
             #Remove-Item $File
         }
         
-        New-Object PSObject -Property @{
-            Name = $File.Name
-            Type = $File.Type
-            Age = $timeDiff
-        }
     }
     
-    $filesToBeDeleted | Select-Object Name, Type, Age | Export-Csv -Path "C:\Users\andas\OneDrive\Desktop" -NoTypeInformation -Force
+    #Export deleted files/folders as a CSV to a log folder location for historical data
+    $filesToBeDeleted | Select-Object Name, Type, Age | Export-Csv -Path #FilePathToExportTo# -NoTypeInformation -Force
 }
 
 #Call Function
-Remove-Backups -filePath "C:\Users\andas\OneDrive\Desktop\Josh" -numberOfDaysToKeep 30
+#Remove-Backups -filePath <Value> -numberOfDaysToKeep <Value>
